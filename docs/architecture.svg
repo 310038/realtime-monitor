@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 670" font-family="-apple-system, 'Segoe UI', 'Noto Sans TC', 'PingFang TC', sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ea580c"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="670" fill="#ffffff"/>
+  <text x="550" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">即時資料分析與監控系統 — 系統架構</text>
+
+  <!-- Browser -->
+  <rect x="20" y="255" width="165" height="80" rx="10" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="102" y="290" text-anchor="middle" font-weight="700" fill="#0f172a">使用者瀏覽器</text>
+  <text x="102" y="310" text-anchor="middle" font-size="12" fill="#475569">Admin / User / Viewer</text>
+
+  <!-- Docker host -->
+  <rect x="205" y="60" width="870" height="595" rx="14" fill="none" stroke="#0ea5e9" stroke-dasharray="6 4" stroke-width="1.5"/>
+  <text x="220" y="82" font-weight="700" fill="#0369a1">Docker Compose（frontend-net / backend-net 橋接網路）</text>
+
+  <!-- Frontend -->
+  <rect x="230" y="110" width="250" height="490" rx="10" fill="#fff1f2" stroke="#e11d48"/>
+  <text x="355" y="136" text-anchor="middle" font-weight="700" fill="#9f1239">frontend　Streamlit :8501</text>
+  <rect x="246" y="193" width="218" height="40" rx="6" fill="#ffffff" stroke="#e11d48"/>
+  <text x="355" y="218" text-anchor="middle" fill="#9f1239">utils/api.py（requests + JWT）</text>
+  <rect x="246" y="290" width="218" height="40" rx="6" fill="#ffffff" stroke="#e11d48"/>
+  <text x="355" y="315" text-anchor="middle" fill="#9f1239">utils/ws.py（背景 WS 執行緒）</text>
+  <g fill="#334155">
+    <text x="246" y="370">• st.navigation 多頁面（依角色）</text>
+    <text x="246" y="394">• 登入 / 登出 / 註冊</text>
+    <text x="246" y="418">• Session State：JWT、使用者</text>
+    <text x="246" y="442">• 儀表板 / 資料管理 / 匯入</text>
+    <text x="246" y="466">• 即時監控（st.fragment 每秒重繪）</text>
+    <text x="246" y="490">• 資料分析 / Excel 下載</text>
+    <text x="246" y="514">• 系統管理（Admin）</text>
+  </g>
+
+  <!-- Backend -->
+  <rect x="540" y="110" width="300" height="490" rx="10" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="690" y="136" text-anchor="middle" font-weight="700" fill="#1e3a8a">backend　FastAPI + Uvicorn :8000</text>
+  <rect x="556" y="152" width="268" height="122" rx="6" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="566" y="172" font-weight="700" fill="#1e40af">REST API /api/v1（Swagger /docs）</text>
+  <g fill="#334155">
+    <text x="566" y="194">auth · users · records · analytics</text>
+    <text x="566" y="214">realtime · thresholds · admin</text>
+    <text x="566" y="234">JWT 驗證 + RBAC 權限 · Pydantic 驗證</text>
+    <text x="566" y="254">統一錯誤處理 · 存取日誌中介層</text>
+  </g>
+  <rect x="556" y="284" width="268" height="52" rx="6" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="566" y="304" font-weight="700" fill="#1e40af">WebSocket /api/v1/ws/realtime</text>
+  <text x="566" y="324" fill="#334155">ConnectionManager 廣播 tick / alerts</text>
+  <rect x="556" y="346" width="268" height="52" rx="6" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="566" y="366" font-weight="700" fill="#c2410c">DataGenerator（asyncio 每秒）</text>
+  <text x="566" y="386" fill="#334155">隨機資料 → 閾值比對 → 異常標記</text>
+  <rect x="556" y="408" width="268" height="74" rx="6" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="566" y="428" font-weight="700" fill="#c2410c">BatchWriter（記憶體緩衝）</text>
+  <text x="566" y="448" fill="#334155">定期：每 N 秒 ｜ 條件：滿 N 筆 / 異常</text>
+  <text x="566" y="468" fill="#334155">失敗自動重新排入 · 關機前 flush</text>
+  <rect x="556" y="492" width="268" height="94" rx="6" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="566" y="512" font-weight="700" fill="#1e40af">SQLAlchemy 2.0 ORM（Async）</text>
+  <g fill="#334155">
+    <text x="566" y="532">AsyncEngine + QueuePool 連接池</text>
+    <text x="566" y="552">asyncmy 驅動 · AsyncSession</text>
+    <text x="566" y="572">Alembic 遷移（啟動時 upgrade head）</text>
+  </g>
+
+  <!-- DB -->
+  <path d="M900,250 a75,18 0 0,0 150,0 v200 a75,18 0 0,1 -150,0 z" fill="#f0fdf4" stroke="#16a34a"/>
+  <ellipse cx="975" cy="250" rx="75" ry="18" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="975" y="295" text-anchor="middle" font-weight="700" fill="#14532d">MariaDB 11.7</text>
+  <text x="975" y="314" text-anchor="middle" fill="#14532d">db :3306</text>
+  <g fill="#334155" text-anchor="middle">
+    <text x="975" y="344">users</text>
+    <text x="975" y="362">data_records</text>
+    <text x="975" y="380">realtime_data</text>
+    <text x="975" y="398">metric_thresholds</text>
+    <text x="975" y="416">system_logs</text>
+  </g>
+
+  <!-- Volumes -->
+  <rect x="900" y="510" width="150" height="34" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="975" y="532" text-anchor="middle" fill="#334155">volume: db_data</text>
+  <rect x="900" y="556" width="150" height="34" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="975" y="578" text-anchor="middle" fill="#334155">volume: backend_logs</text>
+  <line x1="975" y1="470" x2="975" y2="508" stroke="#94a3b8" stroke-dasharray="4 3"/>
+  <line x1="840" y1="573" x2="898" y2="573" stroke="#94a3b8" stroke-dasharray="4 3"/>
+
+  <!-- Arrows -->
+  <line x1="185" y1="290" x2="228" y2="290" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="206" y="282" text-anchor="middle" font-size="11" fill="#475569">HTTP</text>
+  <polyline points="102,335 102,630 690,630 690,602" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <text x="400" y="647" text-anchor="middle" font-size="11" fill="#475569">瀏覽器直連 :8000/docs（Swagger UI）</text>
+
+  <line x1="464" y1="213" x2="554" y2="213" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowB)"/>
+  <text x="510" y="206" text-anchor="middle" font-size="10" fill="#2563eb">REST+JWT</text>
+  <line x1="554" y1="310" x2="466" y2="310" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowO)"/>
+  <text x="510" y="303" text-anchor="middle" font-size="10" fill="#ea580c">WS 推送</text>
+
+  <line x1="690" y1="346" x2="690" y2="338" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowO)"/>
+  <line x1="690" y1="398" x2="690" y2="406" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowO)"/>
+  <line x1="690" y1="482" x2="690" y2="490" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowO)"/>
+
+  <line x1="824" y1="530" x2="900" y2="420" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="872" y="490" font-size="11" fill="#16a34a">TCP 3306</text>
+</svg>

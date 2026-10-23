@@ -1,0 +1,144 @@
+{
+  "records": [
+    {
+      "title": "Server-web01 CPU",
+      "value": 95.92,
+      "category": "cpu_usage",
+      "timestamp": "2026-08-25T00:00:00",
+      "description": "超過閾值"
+    },
+    {
+      "title": "網站流量-App",
+      "value": 479.13,
+      "category": "traffic",
+      "timestamp": "2026-08-25T00:15:00",
+      "description": ""
+    },
+    {
+      "title": "Sensor-C 溫度",
+      "value": 25.84,
+      "category": "temperature",
+      "timestamp": "2026-08-25T03:00:00",
+      "description": ""
+    },
+    {
+      "title": "Sensor-A 濕度",
+      "value": 55.26,
+      "category": "humidity",
+      "timestamp": "2026-08-25T21:00:00",
+      "description": ""
+    },
+    {
+      "title": "門市-高雄 日營收",
+      "value": 4247.2,
+      "category": "sales",
+      "timestamp": "2026-08-25T22:45:00",
+      "description": ""
+    },
+    {
+      "title": "網站流量-App",
+      "value": 478.85,
+      "category": "traffic",
+      "timestamp": "2026-08-26T02:15:00",
+      "description": ""
+    },
+    {
+      "title": "Server-web02 CPU",
+      "value": 20.74,
+      "category": "cpu_usage",
+      "timestamp": "2026-08-26T02:30:00",
+      "description": ""
+    },
+    {
+      "title": "Sensor-B 溫度",
+      "value": 22.54,
+      "category": "temperature",
+      "timestamp": "2026-08-26T03:00:00",
+      "description": ""
+    },
+    {
+      "title": "門市-高雄 日營收",
+      "value": 3122.38,
+      "category": "sales",
+      "timestamp": "2026-08-26T11:15:00",
+      "description": ""
+    },
+    {
+      "title": "Sensor-B 濕度",
+      "value": 67.11,
+      "category": "humidity",
+      "timestamp": "2026-08-26T11:30:00",
+      "description": ""
+    },
+    {
+      "title": "Sensor-B 溫度",
+      "value": 23.49,
+      "category": "temperature",
+      "timestamp": "2026-08-27T08:45:00",
+      "description": ""
+    },
+    {
+      "title": "門市-台北 日營收",
+      "value": 2850.83,
+      "category": "sales",
+      "timestamp": "2026-08-27T14:45:00",
+      "description": ""
+    },
+    {
+      "title": "Server-db01 CPU",
+      "value": 39.46,
+      "category": "cpu_usage",
+      "timestamp": "2026-08-27T20:00:00",
+      "description": ""
+    },
+    {
+      "title": "Sensor-A 濕度",
+      "value": 55.54,
+      "category": "humidity",
+      "timestamp": "2026-08-27T21:30:00",
+      "description": ""
+    },
+    {
+      "title": "網站流量-官網",
+      "value": 653.41,
+      "category": "traffic",
+      "timestamp": "2026-08-27T21:30:00",
+      "description": ""
+    },
+    {
+      "title": "網站流量-App",
+      "value": 371.95,
+      "category": "traffic",
+      "timestamp": "2026-08-28T07:15:00",
+      "description": ""
+    },
+    {
+      "title": "Sensor-A 溫度",
+      "value": 20.23,
+      "category": "temperature",
+      "timestamp": "2026-08-28T10:45:00",
+      "description": ""
+    },
+    {
+      "title": "Server-db01 CPU",
+      "value": 68.59,
+      "category": "cpu_usage",
+      "timestamp": "2026-08-28T14:15:00",
+      "description": ""
+    },
+    {
+      "title": "Sensor-A 濕度",
+      "value": 64.46,
+      "category": "humidity",
+      "timestamp": "2026-08-28T18:30:00",
+      "description": ""
+    },
+    {
+      "title": "門市-台北 日營收",
+      "value": 3182.14,
+      "category": "sales",
+      "timestamp": "2026-08-28T23:30:00",
+      "description": ""
+    }
+  ]
+}
