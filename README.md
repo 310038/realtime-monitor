@@ -99,7 +99,7 @@ realtime-monitor/
 **需求**：Docker 24+、Docker Compose v2
 
 ```bash
-git clone https://github.com/<your-account>/realtime-monitor.git
+git clone https://github.com/310038/realtime-monitor.git
 cd realtime-monitor
 
 # 1. 建立環境變數檔（正式環境請務必修改密碼與 JWT_SECRET_KEY）
