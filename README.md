@@ -113,6 +113,12 @@ docker compose ps
 docker compose logs -f backend
 ```
 
+> **Windows 使用者**：請改用以下指令 clone，避免 git 將 `backend/entrypoint.sh` 轉成 CRLF 換行，導致後端容器啟動失敗（錯誤訊息類似 `exec ./entrypoint.sh: no such file or directory`）：
+>
+> ```bash
+> git clone -c core.autocrlf=false https://github.com/310038/realtime-monitor.git
+> ```
+
 啟動完成後：
 
 | 服務 | 網址 |
