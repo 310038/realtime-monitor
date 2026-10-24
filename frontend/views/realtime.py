@@ -42,6 +42,7 @@ METRIC_LABELS = {"temperature": "溫度 (°C)", "humidity": "濕度 (%)", "cpu_u
 @st.fragment(run_every=refresh)
 def live_panel():
     s: RealtimeStream = st.session_state["rt_stream"]
+    s.touch()
     status_txt = "🟢 已連線" if s.connected else f"🔴 未連線 {s.last_error or ''}"
     st.caption(f"WebSocket：{status_txt}　|　已接收 {s.received} 次推送　|　{datetime.now():%H:%M:%S}")
 

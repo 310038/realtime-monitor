@@ -1,5 +1,11 @@
-"""背景 WebSocket 用戶端：在獨立執行緒接收推送資料，存放於 thread-safe deque。"""
+"""背景 WebSocket 用戶端：在獨立執行緒接收推送資料，存放於 thread-safe deque。
+
+Streamlit 在使用者關閉分頁時不會通知背景執行緒，因此以「閒置逾時」自我回收：
+頁面每次重繪呼叫 touch()，超過 IDLE_TIMEOUT 秒沒有被讀取就斷線結束；
+再次進入即時監控頁時 start() 會重新連線。
+"""
 import json
+import os
 import threading
 import time
 from collections import deque
@@ -7,6 +13,8 @@ from collections import deque
 import websocket
 
 from utils.config import WS_BASE_URL
+
+IDLE_TIMEOUT = float(os.getenv("WS_IDLE_TIMEOUT", "60"))
 
 
 class RealtimeStream:
@@ -18,6 +26,7 @@ class RealtimeStream:
         self.last_error: str | None = None
         self.last_message_at: float | None = None
         self.received = 0
+        self.last_read_at = time.time()
         self._stop = threading.Event()
         self._ws: websocket.WebSocketApp | None = None
         self._thread: threading.Thread | None = None
@@ -26,7 +35,16 @@ class RealtimeStream:
     def alive(self) -> bool:
         return self._thread is not None and self._thread.is_alive()
 
+    def touch(self) -> None:
+        """頁面讀取資料時呼叫，表示仍有人在看。"""
+        self.last_read_at = time.time()
+
+    @property
+    def idle(self) -> bool:
+        return time.time() - self.last_read_at > IDLE_TIMEOUT
+
     def start(self) -> None:
+        self.touch()
         if self.alive:
             return
         self._stop.clear()
@@ -74,7 +92,14 @@ class RealtimeStream:
                 on_error=self._on_error,
                 on_close=self._on_close,
             )
-            self._ws.run_forever(ping_interval=20, ping_timeout=10)
+            conn = threading.Thread(
+                target=self._ws.run_forever, kwargs={"ping_interval": 20, "ping_timeout": 10}, daemon=True
+            )
+            conn.start()
+            while conn.is_alive():
+                if self.idle:  # 分頁已關閉或離開即時監控頁
+                    self.stop()
+                conn.join(1)
             self.connected = False
-            if not self._stop.wait(3):  # 斷線 3 秒後自動重連
-                continue
+            if self._stop.wait(3):  # 斷線 3 秒後自動重連
+                break

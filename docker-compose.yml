@@ -60,6 +60,7 @@ services:
     environment:
       API_BASE_URL: http://backend:8000
       PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:8000}
+      WS_IDLE_TIMEOUT: ${WS_IDLE_TIMEOUT:-60}
       TZ: ${TZ:-Asia/Taipei}
     depends_on:
       backend:
